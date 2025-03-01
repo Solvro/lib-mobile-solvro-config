@@ -1,1 +1,1 @@
-include: lib/package_config.yml
+include: package:solvro_config/lib/package.yaml
