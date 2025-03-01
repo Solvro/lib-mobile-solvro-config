@@ -52,8 +52,7 @@ custom_lint:
     - avoid_unused_parameters
     - boolean_prefixes
     - class_members_ordering # to be discussed
-    - max_lines_for_file
-      max_lines: 120
+    # - max_lines_for_file
     # - max_lines_for_function # this is a bit too much
     # - max_switch_cases # idiotic rule
     - no_duplicate_imports
@@ -91,4 +90,4 @@ custom_lint:
     # === cognitive complexity ===
     - cognitive_complexity
 
-    # === accessibility_lint, plural_lint, flutter_gen_linter, l10n_lint should include all by default i think? === 
+    # === accessibility_lint, plural_lint, flutter_gen_linter, l10n_lint should include all by default i think? ===
