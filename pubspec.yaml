@@ -10,6 +10,7 @@ dependencies:
   accessibility_lint: ^1.0.0
   dart_cognitive_complexity: ^1.0.1
   flutter_gen_linter: ^1.0.0+2
+  flutter_hooks_lint: ^1.2.1
   freezed_lint: ^0.0.9
   l10n_lint: ^0.6.0
   plural_lint: ^0.0.10
