@@ -7,4 +7,6 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
+  custom_lint: ^0.7.5
+  riverpod_lint: ^2.6.5
   total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
