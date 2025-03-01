@@ -7,6 +7,18 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
-  custom_lint: ^0.7.5
+  accessibility_lint: ^1.0.0
+  dart_cognitive_complexity: ^1.0.1
+  flutter_gen_linter: ^1.0.0+2
+  freezed_lint: ^0.0.9
+  l10n_lint: ^0.6.0
+  plural_lint: ^0.0.10
+  pyramid_lint: ^2.0.2
   riverpod_lint: ^2.6.5
   total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
+
+dependency_overrides:
+  analyzer: ^7.3.0
+  analyzer_plugin: ^0.13.0
+  custom_lint: ^0.7.5
+  custom_lint_builder: ^0.7.5
