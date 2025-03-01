@@ -35,11 +35,10 @@ analyzer:
 
 custom_lint:
   rules:
-    # riverpod lint
+    # === riverpod lint ===
     - provider_dependencies: false # this works weirdly
 
-    # pyramid linter
-    # Dart lints
+    # === pyramid Dart lints ===
     - always_put_doc_comments_before_annotations
     - always_specify_parameter_names
     - avoid_abbreviations_in_doc_comments
@@ -51,18 +50,27 @@ custom_lint:
     - avoid_positional_fields_in_records
     - avoid_redundant_pattern_field_names
     - avoid_unused_parameters
+    - boolean_prefixes
+    - class_members_ordering # to be discussed
+    - max_lines_for_file
+      max_lines: 120
+    # - max_lines_for_function # this is a bit too much
+    # - max_switch_cases # idiotic rule
     - no_duplicate_imports
     - no_self_comparisons
     - prefer_async_await
     - prefer_const_constructor_declarations
+    - prefer_immediate_return
     - prefer_iterable_any
     - prefer_iterable_every
     - prefer_iterable_first
     - prefer_iterable_last
     - prefer_library_prefixes
-    - prefer_underscore_for_unused_callback_parameters
+    - prefer_new_line_before_return
+    # - prefer_underscore_for_unused_callback_parameters # no longer needed in dart 3.7
     - unnecessary_nullable_return_type
-    # Flutter lints
+
+    # === pyramid Flutter lints ===
     - avoid_returning_widgets
     - avoid_single_child_in_flex
     - avoid_public_members_in_states
