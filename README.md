@@ -1,6 +1,4 @@
-# solvro_config
-
-[![License: MIT][license_badge]][license_link]
+# Solvro Dart Config
 
 ---
 
