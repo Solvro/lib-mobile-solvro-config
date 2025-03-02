@@ -2,7 +2,6 @@ import "dart:io";
 
 import "package:mason_logger/mason_logger.dart";
 
-import "../utils/add_if_not_exist.dart";
 import "add_ci_if_not_exist.dart";
 
 void addFlutterCI(Logger logger) {
@@ -58,5 +57,5 @@ jobs:
   ''';
 
   addCI(logger, "flutter_ci", workflowContent);
-  addIfNotExist(logger, File("example.env"), "");
+  File("example.env").createSync(recursive: true);
 }
