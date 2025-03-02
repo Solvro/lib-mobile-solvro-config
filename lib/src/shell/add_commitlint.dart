@@ -3,7 +3,15 @@ import "dart:io";
 import "package:mason_logger/mason_logger.dart";
 
 Future<void> addCommitLint(Logger logger) async {
-  await File("commitlint.yaml").writeAsString("""
+  final commitlintFile = File("commitlint.yaml");
+  if (commitlintFile.existsSync()) {
+    final content = await commitlintFile.readAsString();
+    if (content.contains("include: package:solvro_config/commitlint.yaml")) {
+      logger.warn("commitlint.yaml already includes commitlint.yaml");
+      return;
+    }
+  }
+  await commitlintFile.writeAsString("""
 include: package:solvro_config/commitlint.yaml
 rules:
   scope-enum: # define your own scopes here
