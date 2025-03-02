@@ -1,6 +1,7 @@
 import "package:args/command_runner.dart";
 import "package:mason_logger/mason_logger.dart";
-import "../shell/install_solvro.dart";
+
+import "../install_solvro/install_solvro.dart";
 
 class InstallSolvroCommand extends Command<int> {
   InstallSolvroCommand({required Logger logger}) : _logger = logger {
