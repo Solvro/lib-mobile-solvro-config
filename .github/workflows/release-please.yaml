@@ -28,26 +28,26 @@ jobs:
           release-type: dart
     
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.prs_created }}
       - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         with:
           sdk: "stable"
 
       - name: 📦 Install Dependencies
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         run: |
           dart pub get
     
       - name: Run Build and Tests
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         run: |
           dart run build_runner build --delete-conflicting-outputs
     
       - name: Run the Action
         uses: devops-infra/action-commit-push@master
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         with:
           github_token: "${{ steps.generate-token.outputs.token }}"
           add_timestamp: true
