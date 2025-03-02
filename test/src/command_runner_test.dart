@@ -30,15 +30,22 @@ void main() {
     setUp(() {
       pubUpdater = _MockPubUpdater();
 
-      when(() => pubUpdater.getLatestVersion(any())).thenAnswer((_) async => packageVersion);
+      when(
+        () => pubUpdater.getLatestVersion(any()),
+      ).thenAnswer((_) async => packageVersion);
 
       logger = _MockLogger();
 
-      commandRunner = SolvroConfigCommandRunner(logger: logger, pubUpdater: pubUpdater);
+      commandRunner = SolvroConfigCommandRunner(
+        logger: logger,
+        pubUpdater: pubUpdater,
+      );
     });
 
     test("shows update message when newer version exists", () async {
-      when(() => pubUpdater.getLatestVersion(any())).thenAnswer((_) async => latestVersion);
+      when(
+        () => pubUpdater.getLatestVersion(any()),
+      ).thenAnswer((_) async => latestVersion);
 
       final result = await commandRunner.run(["--version"]);
       expect(result, equals(ExitCode.success.code));
@@ -47,7 +54,9 @@ void main() {
 
     test("Does not show update message when the shell calls the "
         "completion command", () async {
-      when(() => pubUpdater.getLatestVersion(any())).thenAnswer((_) async => latestVersion);
+      when(
+        () => pubUpdater.getLatestVersion(any()),
+      ).thenAnswer((_) async => latestVersion);
 
       final result = await commandRunner.run(["completion"]);
       expect(result, equals(ExitCode.success.code));
@@ -55,13 +64,22 @@ void main() {
     });
 
     test("does not show update message when using update command", () async {
-      when(() => pubUpdater.getLatestVersion(any())).thenAnswer((_) async => latestVersion);
       when(
-        () => pubUpdater.update(packageName: packageName, versionConstraint: any(named: "versionConstraint")),
-      ).thenAnswer((_) async => ProcessResult(0, ExitCode.success.code, null, null));
+        () => pubUpdater.getLatestVersion(any()),
+      ).thenAnswer((_) async => latestVersion);
       when(
-        () =>
-            pubUpdater.isUpToDate(packageName: any(named: "packageName"), currentVersion: any(named: "currentVersion")),
+        () => pubUpdater.update(
+          packageName: packageName,
+          versionConstraint: any(named: "versionConstraint"),
+        ),
+      ).thenAnswer(
+        (_) async => ProcessResult(0, ExitCode.success.code, null, null),
+      );
+      when(
+        () => pubUpdater.isUpToDate(
+          packageName: any(named: "packageName"),
+          currentVersion: any(named: "currentVersion"),
+        ),
       ).thenAnswer((_) async => true);
 
       final progress = _MockProgress();
@@ -77,11 +95,14 @@ void main() {
       verifyNever(() => logger.info(updatePrompt));
     });
 
-    test("can be instantiated without an explicit analytics/logger instance", () {
-      final commandRunner = SolvroConfigCommandRunner();
-      expect(commandRunner, isNotNull);
-      expect(commandRunner, isA<CompletionCommandRunner<int>>());
-    });
+    test(
+      "can be instantiated without an explicit analytics/logger instance",
+      () {
+        final commandRunner = SolvroConfigCommandRunner();
+        expect(commandRunner, isNotNull);
+        expect(commandRunner, isA<CompletionCommandRunner<int>>());
+      },
+    );
 
     test("handles FormatException", () async {
       const exception = FormatException("oops!");
