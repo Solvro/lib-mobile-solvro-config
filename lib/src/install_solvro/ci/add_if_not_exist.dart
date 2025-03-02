@@ -8,10 +8,8 @@ void addCI(Logger logger, String workflowName, String workflowContent) {
   if (!workflowFile.existsSync()) {
     workflowFile.createSync(recursive: true);
     workflowFile.writeAsStringSync(workflowContent);
-    logger.info(
-      green.wrap("Workflow $workflowName file created successfully."),
-    );
+    logger.info(green.wrap("Workflow $workflowName file created successfully."));
   } else {
-    logger.info(yellow.wrap("Workflow $workflowName file already exists."));
+    logger.warn("Workflow $workflowName file already exists.");
   }
 }
