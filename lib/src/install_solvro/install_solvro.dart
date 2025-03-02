@@ -7,6 +7,7 @@ import "add_linter.dart";
 import "ci/add_commitlint_ci.dart";
 import "ci/add_flutter_ci.dart";
 import "ci/add_pr_title_ci.dart";
+import "ci/cspell.dart";
 import "ci/dependabot.dart";
 
 Future<void> installSolvroApp(
@@ -25,6 +26,7 @@ Future<void> installSolvroApp(
   addCommitLint(logger);
   await addLintStageToPubspec(logger);
   if (installAppVersion) {
+    addCSpell(logger);
     addFlutterCI(logger);
   } else {
     logger.warn(
