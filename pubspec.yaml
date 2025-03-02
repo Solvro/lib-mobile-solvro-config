@@ -26,9 +26,7 @@ dependencies:
   commitlint_cli: ^0.8.1
   husky: ^0.1.7
   lint_staged: ^0.5.1
-  derry: ^1.5.0
-  script_runner: ^0.7.6
-  file: ^7.0.1
+  process_run: ^1.2.3
 
 lint_staged:
   "lib/**.dart": dart format && dart fix --apply

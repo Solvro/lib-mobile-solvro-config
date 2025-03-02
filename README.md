@@ -45,4 +45,4 @@ $ solvro_config --help
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli 
+[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
