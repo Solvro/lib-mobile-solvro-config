@@ -7,6 +7,7 @@ import "add_linter.dart";
 import "ci/add_commitlint_ci.dart";
 import "ci/add_flutter_ci.dart";
 import "ci/add_pr_title_ci.dart";
+import "ci/dependabot.dart";
 
 Future<void> installSolvroApp(
   Logger logger, {
@@ -32,4 +33,5 @@ Future<void> installSolvroApp(
   }
   addPRTitleCI(logger);
   addCommitLintCI(logger);
+  addDependabot(logger);
 }

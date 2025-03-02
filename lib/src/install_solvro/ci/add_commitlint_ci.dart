@@ -26,5 +26,5 @@ jobs:
         run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config lib/commitlint.yaml
   ''';
 
-  addCI(logger, "commit_lint_ci.yml", workflowContent);
+  addCI(logger, "commit_lint_ci", workflowContent);
 }

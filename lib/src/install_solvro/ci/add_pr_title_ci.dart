@@ -24,5 +24,5 @@ jobs:
         run: echo ${{github.event.pull_request.title}} | dart run commitlint_cli
   ''';
 
-  addCI(logger, "pr_title_ci.yml", workflowContent);
+  addCI(logger, "pr_title_ci", workflowContent);
 }

@@ -54,5 +54,5 @@ jobs:
         run: flutter test
   ''';
 
-  addCI(logger, "flutter_ci.yml", workflowContent);
+  addCI(logger, "flutter_ci", workflowContent);
 }
