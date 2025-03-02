@@ -21,7 +21,7 @@ jobs:
         run: dart pub get
 
       - name: Validate Title of PR
-        run: echo ${{github.event.pull_request.title}} | dart run commitlint_cli
+        run: echo "${{github.event.pull_request.title}}" | dart run commitlint_cli
   ''';
 
   const contentForApp = r'''
@@ -47,7 +47,7 @@ jobs:
         run: flutter pub get
 
       - name: Validate Title of PR
-        run: echo ${{github.event.pull_request.title}} | dart run commitlint_cli
+        run: echo "${{github.event.pull_request.title}}" | dart run commitlint_cli
   ''';
 
   final workflowContent = installAppVersion ? contentForApp : contentForPackage;
