@@ -26,7 +26,7 @@
 * **ci:** add pub dev CD ([716972d](https://github.com/Solvro/lib-mobile-solvro-config/commit/716972dbf5b0f895a62a99639db523f38f827470))
 * **cli:** add flutter ci installation ([5257c45](https://github.com/Solvro/lib-mobile-solvro-config/commit/5257c4540d77bef3574fd82e940379622a282599))
 * **commitlint:** do not install if it is already installed ([99f7e5c](https://github.com/Solvro/lib-mobile-solvro-config/commit/99f7e5ccdb7650d95485586ccd09d034af855e0d))
-* enable stricker lang options ([a42f8f3](https://github.com/Solvro/lib-mobile-solvro-config/commit/a42f8f39d7c21198064398721c908bc8ef33ff2a))
+* enable more strict lang options ([a42f8f3](https://github.com/Solvro/lib-mobile-solvro-config/commit/a42f8f39d7c21198064398721c908bc8ef33ff2a))
 * **lint-staged:** add lint staged to installing cli ([f86423c](https://github.com/Solvro/lib-mobile-solvro-config/commit/f86423c7ccf1f6c85a126d8dce38a6d784ad68c6))
 
 

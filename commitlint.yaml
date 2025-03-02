@@ -8,3 +8,4 @@ rules:
       - commitlint
       - lint-staged
       - ci
+      - main
