@@ -1,10 +1,10 @@
-import "dart:io";
-
 import "package:mason_logger/mason_logger.dart";
+
+import "add_if_not_exist.dart";
 
 void addFlutterCI(Logger logger) {
   const workflowContent = '''
-name: Lint & formatting
+name: CI
 
 on:
   push:
@@ -54,13 +54,5 @@ jobs:
         run: flutter test
   ''';
 
-  final workflowFile = File(".github/workflows/flutter_ci.yml");
-
-  if (!workflowFile.existsSync()) {
-    workflowFile.createSync(recursive: true);
-    workflowFile.writeAsStringSync(workflowContent);
-    logger.info(green.wrap("Workflow file created successfully."));
-  } else {
-    logger.info(yellow.wrap("Workflow file already exists."));
-  }
+  addCI(logger, "flutter_ci.yml", workflowContent);
 }

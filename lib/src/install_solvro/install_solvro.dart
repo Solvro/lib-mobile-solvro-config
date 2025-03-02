@@ -4,6 +4,9 @@ import "package:process_run/shell.dart";
 import "add_commitlint.dart";
 import "add_lint_staged_to_pubspec.dart";
 import "add_linter.dart";
+import "ci/add_commitlint_ci.dart";
+import "ci/add_flutter_ci.dart";
+import "ci/add_pr_title_ci.dart";
 
 Future<void> installSolvroApp(
   Logger logger, {
@@ -20,4 +23,7 @@ Future<void> installSolvroApp(
   await addLinter(yamlName, logger);
   await addCommitLint(logger);
   await addLintStageToPubspec(logger);
+  addFlutterCI(logger);
+  addPRTitleCI(logger);
+  addCommitLintCI(logger);
 }
