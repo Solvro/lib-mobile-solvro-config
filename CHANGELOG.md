@@ -1,3 +1,7 @@
+## 0.0.5
+
+- fix CLI version tag
+
 ## 0.0.4
 
 - add example.env
