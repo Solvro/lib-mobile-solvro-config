@@ -1,9 +1,18 @@
+## 0.0.4
+
+- add example.env
+
+## 0.0.3
+
+- cspell bug fixed
+
 ## 0.0.2
 
 - add flutter ci template
 - add pr title ci template
 - add commit lint ci template
 - small CLI improves
+- cspell
 
 ## 0.0.1
 
