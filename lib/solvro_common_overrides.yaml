@@ -91,3 +91,15 @@ custom_lint:
     - cognitive_complexity
 
     # === accessibility_lint, plural_lint, flutter_gen_linter, l10n_lint should include all by default i think? ===
+
+    # === altive_lints ===
+
+    - avoid_consecutive_sliver_to_box_adapter
+    - avoid_hardcoded_color
+    - avoid_hardcoded_japanese
+    - avoid_shrink_wrap_in_list_view
+    - avoid_single_child
+    - prefer_clock_now
+    - prefer_dedicated_media_query_methods
+    - prefer_space_between_elements
+    - prefer_to_include_sliver_in_name
