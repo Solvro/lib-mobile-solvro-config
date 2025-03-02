@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - ".github/workflows/solvro_config.yaml"
+      - ".github/workflows/CI.yaml"
       - "lib/**"
       - "test/**"
       - "pubspec.yaml"
@@ -15,7 +15,7 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/solvro_config.yaml"
+      - ".github/workflows/CI.yaml"
       - "lib/**"
       - "test/**"
       - "pubspec.yaml"
@@ -53,3 +53,5 @@ jobs:
 
       - name: 🔎 Verify version
         run: dart run test --run-skipped -t version-verify 
+      - run: dart analyze --fatal-infos
+      - run: dart run custom_lint --fatal-infos
