@@ -12,6 +12,7 @@ rules:
       - ci
       - test
       - build
+      - temp
 
   footer-max-length:
     - 2

@@ -17,30 +17,13 @@ dependencies:
   # pyramid_lint:
   riverpod_lint: ^2.6.5
   total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
-
   altive_lints: ^1.19.1
-
   commitlint_cli: ^0.8.1
   husky: ^0.1.7
   lint_staged: ^0.5.1
   derry: ^1.5.0
+  script_runner: ^0.7.6
+  file: ^7.0.1
 
 lint_staged:
-  "lib/**.dart": dart format --fix && dart fix --apply
-
-scripts:
-  install-config-for-an-app: |
-    dart run husky install
-    dart run husky set .husky/commit-msg 'dart run commitlint_cli --edit "$1"'
-    dart run husky set .husky/pre-commit "dart run lint_staged"
-    echo "include: package:solvro_config/commitlint.yaml" > commitlint.yaml
-    echo "include: package:solvro_config/app.yaml" > analysis_options.yaml
-    echo "rules:" >> commitlint.yaml
-    echo "  scope-enum: # define your own scopes here" >> commitlint.yaml
-    echo "    - 2" >> commitlint.yaml
-    echo "    - always" >> commitlint.yaml
-    echo "    - - example-scope-1" >> commitlint.yaml
-    echo "      - example-scope-2" >> commitlint.yaml
-  install-config-for-a-package: |
-    dart run derry install-config-for-an-app
-    echo "include: package:solvro_config/package.yaml" > analysis_options.yaml
+  "lib/**.dart": dart format && dart fix --apply
