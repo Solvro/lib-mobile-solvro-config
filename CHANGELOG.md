@@ -1,7 +1,3 @@
-## 0.0.7 - 0.0.9
-
-- small CI improves/typos
-
 ## 1.0.0 (2025-03-02)
 
 
@@ -46,37 +42,3 @@
 * missing semicolons ([2a5add8](https://github.com/Solvro/lib-mobile-solvro-config/commit/2a5add84eb2a4f8a5200f80567c877c8afbaef4a))
 * try to fix yaml parsing ([493ea3a](https://github.com/Solvro/lib-mobile-solvro-config/commit/493ea3a7e9a1d2a970428d8c076482b05a4df0ed))
 * typo ([5ecec21](https://github.com/Solvro/lib-mobile-solvro-config/commit/5ecec21dee6c3223de3724cf411fc3f532c3a65e))
-
-## 0.0.6
-
-- add flutter ci versions
-- remove cspell
-
-## 0.0.5
-
-- fix CLI version tag
-
-## 0.0.4
-
-- add example.env
-
-## 0.0.3
-
-- cspell bug fixed
-
-## 0.0.2
-
-- add flutter ci template
-- add pr title ci template
-- add commit lint ci template
-- small CLI improves
-- cspell
-
-## 0.0.1
-
-- Initial version.
-- set up linter, total lints, riverpod lints
-- set up commit linter
-- set up husky
-- set up lint staged
-- set up cli with very_good
