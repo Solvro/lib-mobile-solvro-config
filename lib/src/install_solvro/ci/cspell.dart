@@ -26,5 +26,5 @@ void addCSpell(Logger logger) {
   "words": ["solvro", "Solvro", "KN Solvro", "Koło Naukowe Solvro", "riverpod"]
 }
 """;
-  addIfNotExist(logger, File("cspell.json"), template);
+  addIfNotExist(logger, File(".github/cspell.json"), template);
 }

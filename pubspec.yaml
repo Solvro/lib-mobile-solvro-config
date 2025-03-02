@@ -1,6 +1,6 @@
 name: solvro_config
 description: A Flutter and Dart linter/config package for Solvro projects.
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/Solvro/lib-mobile-solvro-config
 
 environment:
