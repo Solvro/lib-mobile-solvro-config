@@ -1,3 +1,7 @@
+## 0.0.7
+
+- small CI improves/typos
+
 ## 0.0.6
 
 - add flutter ci versions

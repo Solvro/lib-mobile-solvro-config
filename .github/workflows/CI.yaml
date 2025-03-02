@@ -1,4 +1,4 @@
-name: solvro_config
+name: CI
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

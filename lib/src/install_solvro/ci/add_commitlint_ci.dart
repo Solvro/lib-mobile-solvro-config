@@ -23,7 +23,7 @@ jobs:
         run: dart pub get
 
       - name: Validate PR Commits
-        run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config lib/commitlint.yaml
+        run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config commitlint.yaml
   ''';
 
   const contentForApp = r'''
@@ -51,7 +51,7 @@ jobs:
         run: flutter pub get
 
       - name: Validate PR Commits
-        run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config lib/commitlint.yaml
+        run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config commitlint.yaml
   ''';
   final workflowContent = installAppVersion ? contentForApp : contentForPackage;
 
