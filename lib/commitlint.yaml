@@ -13,14 +13,6 @@ rules:
       - test
       - build
 
-  body-max-length:
-    - 2
-    - always
-    - 0
-  body-max-line-length:
-    - 2
-    - always
-    - 0
   footer-max-length:
     - 2
     - always
@@ -29,3 +21,9 @@ rules:
     - 2
     - always
     - 0
+
+  scope-enum:
+    - 2
+    - always
+    - - example-scope-1
+      - example-scope-2
