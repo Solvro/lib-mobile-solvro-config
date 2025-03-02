@@ -2,18 +2,11 @@
 
 ---
 
-## Getting Started 🚀
-
-If the CLI application is available on [pub](https://pub.dev), activate globally via:
+## Getting Started 🚀 - Installation
 
 ```sh
-dart pub global activate solvro_config
-```
-
-Or locally via:
-
-```sh
-dart pub global activate --source=path <path to this package>
+dart pub add dev:solvro_config
+dart run solvro_config install
 ```
 
 ## Usage
