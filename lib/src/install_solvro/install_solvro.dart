@@ -20,10 +20,16 @@ Future<void> installSolvroApp(
       dart run husky set .husky/pre-commit "dart run lint_staged"
 ''');
   logger.info(green.wrap("Added husky hooks"));
-  await addLinter(yamlName, logger);
-  await addCommitLint(logger);
+  addLinter(yamlName, logger);
+  addCommitLint(logger);
   await addLintStageToPubspec(logger);
-  addFlutterCI(logger);
+  if (installAppVersion) {
+    addFlutterCI(logger);
+  } else {
+    logger.warn(
+      "Skipping Flutter CI for package installation. Currently, Flutter CI is only supported for app installation.",
+    );
+  }
   addPRTitleCI(logger);
   addCommitLintCI(logger);
 }

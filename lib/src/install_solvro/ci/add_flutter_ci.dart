@@ -1,6 +1,6 @@
 import "package:mason_logger/mason_logger.dart";
 
-import "add_if_not_exist.dart";
+import "add_ci_if_not_exist.dart";
 
 void addFlutterCI(Logger logger) {
   const workflowContent = '''

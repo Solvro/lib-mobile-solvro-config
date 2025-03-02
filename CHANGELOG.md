@@ -1,3 +1,10 @@
+## 0.0.2
+
+- add flutter ci template
+- add pr title ci template
+- add commit lint ci template
+- small CLI improves
+
 ## 0.0.1
 
 - Initial version.
