@@ -22,6 +22,36 @@ jobs:
           app-id: ${{ secrets.CI_GITHUB_APP_APP_ID }}
           private-key: ${{ secrets.CI_GITHUB_APP_SECRET }}
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ steps.generate-token.outputs.token }}
           release-type: dart
+    
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          sdk: "stable"
+
+      - name: 📦 Install Dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          dart pub get
+    
+      - name: Run Build and Tests
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+    
+      - name: Run the Action
+        uses: devops-infra/action-commit-push@master
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          github_token: "${{ steps.generate-token.outputs.token }}"
+          add_timestamp: true
+          commit_prefix: "chore: "
+          commit_message: "run build_runner build"
+          force: false
+          target_branch: release-please--branches--main--components--solvro_config
