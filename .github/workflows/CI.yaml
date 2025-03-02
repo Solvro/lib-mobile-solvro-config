@@ -6,19 +6,10 @@ concurrency:
 
 on:
   pull_request:
-    paths:
-      - ".github/workflows/CI.yaml"
-      - "lib/**"
-      - "test/**"
-      - "pubspec.yaml"
   push:
     branches:
       - main
-    paths:
-      - ".github/workflows/CI.yaml"
-      - "lib/**"
-      - "test/**"
-      - "pubspec.yaml"
+
 
 jobs:
   semantic-pull-request:
