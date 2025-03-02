@@ -1,3 +1,8 @@
+## 0.0.6
+
+- add flutter ci versions
+- remove cspell
+
 ## 0.0.5
 
 - fix CLI version tag
