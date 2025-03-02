@@ -1,3 +1,14 @@
+# Changelog
+
+## [1.0.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.0.0...v1.0.1) (2025-03-02)
+
+
+### Bug Fixes
+
+* **ci:** codepush condition ([44e84c9](https://github.com/Solvro/lib-mobile-solvro-config/commit/44e84c955445804ddb9ba1a309a40d031aa0c958))
+* **ci:** cspell new word ([d05e463](https://github.com/Solvro/lib-mobile-solvro-config/commit/d05e4630f637452e673df1250746de6e5b8f78ee))
+* **ci:** pr title check bug ([c83cc8e](https://github.com/Solvro/lib-mobile-solvro-config/commit/c83cc8ea1b14bf68dc609107346eb9da255de745))
+
 ## 1.0.0 (2025-03-02)
 
 
