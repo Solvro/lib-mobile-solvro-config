@@ -3,5 +3,8 @@ rules:
   scope-enum: # define your own scopes here
     - 2
     - always
-    - - example-scope-1
-      - example-scope-2
+    - - cli
+      - lint
+      - commitlint
+      - lint-staged
+      - ci

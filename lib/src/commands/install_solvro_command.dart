@@ -28,10 +28,10 @@ class InstallSolvroCommand extends Command<int> {
         _logger.info(
           yellow.wrap("Requested package version installation (not an app)..."),
         );
-        await installSolvroApp(installAppVersion: false);
+        await installSolvroApp(_logger, installAppVersion: false);
       } else {
         _logger.info(lightCyan.wrap("Requested app version installation..."));
-        await installSolvroApp(installAppVersion: true);
+        await installSolvroApp(_logger, installAppVersion: true);
       }
 
       _logger.info(
