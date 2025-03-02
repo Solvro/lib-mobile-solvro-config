@@ -3,12 +3,14 @@ import "package:args/command_runner.dart";
 import "package:cli_completion/cli_completion.dart";
 import "package:mason_logger/mason_logger.dart";
 import "package:pub_updater/pub_updater.dart";
+
 import "commands/commands.dart";
 import "version.dart";
 
 const executableName = "solvro_config";
 const packageName = "solvro_config";
-const description = "A Very Good Project created by Very Good CLI.";
+const description =
+    "A Flutter and Dart linter/config package for Solvro projects.";
 
 /// {@template solvro_config_command_runner}
 /// A [CommandRunner] for the CLI.

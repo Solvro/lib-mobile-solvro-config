@@ -4,6 +4,7 @@ import "add_ci_if_not_exist.dart";
 
 void addCommitLintCI(Logger logger, {required bool installAppVersion}) {
   const contentForPackage = r'''
+name: Commit Lint CI
 on:
   pull_request:
     branches: [ "main" ]
@@ -27,6 +28,7 @@ jobs:
   ''';
 
   const contentForApp = r'''
+name: Commit Lint CI
 on:
   pull_request:
     branches: [ "main" ]
