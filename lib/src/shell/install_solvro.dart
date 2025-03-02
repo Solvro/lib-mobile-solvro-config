@@ -1,8 +1,8 @@
-import 'package:process_run/shell.dart';
+import "package:process_run/shell.dart";
 
 Future<void> installSolvroApp({required bool installAppVersion}) async {
   final shell = Shell();
-  final yamlName = installAppVersion ? 'app' : 'package';
+  final yamlName = installAppVersion ? "app" : "package";
   await shell.run('''
       dart run husky install
       dart run husky set .husky/commit-msg 'dart run commitlint_cli --edit "\$1"'

@@ -1,1 +1,11 @@
 include: package:solvro_config/package.yaml
+
+formatter:
+  page_width: 80
+
+linter:
+  rules:
+    public_member_api_docs: false
+    sort_pub_dependencies: false
+    discarded_futures: false
+    avoid_catches_without_on_clauses: false

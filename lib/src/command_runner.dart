@@ -1,14 +1,14 @@
-import 'package:args/args.dart';
-import 'package:args/command_runner.dart';
-import 'package:cli_completion/cli_completion.dart';
-import 'package:mason_logger/mason_logger.dart';
-import 'package:pub_updater/pub_updater.dart';
-import 'package:solvro_config/src/commands/commands.dart';
-import 'package:solvro_config/src/version.dart';
+import "package:args/args.dart";
+import "package:args/command_runner.dart";
+import "package:cli_completion/cli_completion.dart";
+import "package:mason_logger/mason_logger.dart";
+import "package:pub_updater/pub_updater.dart";
+import "commands/commands.dart";
+import "version.dart";
 
-const executableName = 'solvro_config';
-const packageName = 'solvro_config';
-const description = 'A Very Good Project created by Very Good CLI.';
+const executableName = "solvro_config";
+const packageName = "solvro_config";
+const description = "A Very Good Project created by Very Good CLI.";
 
 /// {@template solvro_config_command_runner}
 /// A [CommandRunner] for the CLI.
@@ -26,14 +26,14 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
     // Add root options and flags
     argParser
       ..addFlag(
-        'version',
-        abbr: 'v',
+        "version",
+        abbr: "v",
         negatable: false,
-        help: 'Print the current version.',
+        help: "Print the current version.",
       )
       ..addFlag(
-        'verbose',
-        help: 'Noisy logging, including all shell commands executed.',
+        "verbose",
+        help: "Noisy logging, including all shell commands executed.",
       );
 
     // Add sub commands
@@ -51,7 +51,7 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
   Future<int> run(Iterable<String> args) async {
     try {
       final topLevelResults = parse(args);
-      if (topLevelResults['verbose'] == true) {
+      if (topLevelResults["verbose"] == true) {
         _logger.level = Level.verbose;
       }
       return await runCommand(topLevelResults) ?? ExitCode.success.code;
@@ -60,8 +60,8 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
       // exit with an error code
       _logger
         ..err(e.message)
-        ..err('$stackTrace')
-        ..info('')
+        ..err("$stackTrace")
+        ..info("")
         ..info(usage);
       return ExitCode.usage.code;
     } on UsageException catch (e) {
@@ -69,7 +69,7 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
       // exit with an error code
       _logger
         ..err(e.message)
-        ..info('')
+        ..info("")
         ..info(e.usage);
       return ExitCode.usage.code;
     }
@@ -78,35 +78,35 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
   @override
   Future<int?> runCommand(ArgResults topLevelResults) async {
     // Fast track completion command
-    if (topLevelResults.command?.name == 'completion') {
+    if (topLevelResults.command?.name == "completion") {
       await super.runCommand(topLevelResults);
       return ExitCode.success.code;
     }
 
     // Verbose logs
     _logger
-      ..detail('Argument information:')
-      ..detail('  Top level options:');
+      ..detail("Argument information:")
+      ..detail("  Top level options:");
     for (final option in topLevelResults.options) {
       if (topLevelResults.wasParsed(option)) {
-        _logger.detail('  - $option: ${topLevelResults[option]}');
+        _logger.detail("  - $option: ${topLevelResults[option]}");
       }
     }
     if (topLevelResults.command != null) {
       final commandResult = topLevelResults.command!;
       _logger
-        ..detail('  Command: ${commandResult.name}')
-        ..detail('    Command options:');
+        ..detail("  Command: ${commandResult.name}")
+        ..detail("    Command options:");
       for (final option in commandResult.options) {
         if (commandResult.wasParsed(option)) {
-          _logger.detail('    - $option: ${commandResult[option]}');
+          _logger.detail("    - $option: ${commandResult[option]}");
         }
       }
     }
 
     // Run the command or show version
     final int? exitCode;
-    if (topLevelResults['version'] == true) {
+    if (topLevelResults["version"] == true) {
       _logger.info(packageVersion);
       exitCode = ExitCode.success.code;
     } else {
@@ -130,7 +130,7 @@ class SolvroConfigCommandRunner extends CompletionCommandRunner<int> {
       final isUpToDate = packageVersion == latestVersion;
       if (!isUpToDate) {
         _logger
-          ..info('')
+          ..info("")
           ..info('''
 ${lightYellow.wrap('Update available!')} ${lightCyan.wrap(packageVersion)} \u2192 ${lightCyan.wrap(latestVersion)}
 Run ${lightCyan.wrap('$executableName update')} to update''');

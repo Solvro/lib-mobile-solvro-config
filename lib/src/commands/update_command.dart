@@ -1,10 +1,10 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:args/command_runner.dart';
-import 'package:mason_logger/mason_logger.dart';
-import 'package:pub_updater/pub_updater.dart';
-import 'package:solvro_config/src/command_runner.dart';
-import 'package:solvro_config/src/version.dart';
+import "package:args/command_runner.dart";
+import "package:mason_logger/mason_logger.dart";
+import "package:pub_updater/pub_updater.dart";
+import "../command_runner.dart";
+import "../version.dart";
 
 /// {@template update_command}
 /// A command which updates the CLI.
@@ -19,33 +19,33 @@ class UpdateCommand extends Command<int> {
   final PubUpdater _pubUpdater;
 
   @override
-  String get description => 'Update the CLI.';
+  String get description => "Update the CLI.";
 
-  static const String commandName = 'update';
+  static const String commandName = "update";
 
   @override
   String get name => commandName;
 
   @override
   Future<int> run() async {
-    final updateCheckProgress = _logger.progress('Checking for updates');
+    final updateCheckProgress = _logger.progress("Checking for updates");
     late final String latestVersion;
     try {
       latestVersion = await _pubUpdater.getLatestVersion(packageName);
     } catch (error) {
       updateCheckProgress.fail();
-      _logger.err('$error');
+      _logger.err("$error");
       return ExitCode.software.code;
     }
-    updateCheckProgress.complete('Checked for updates');
+    updateCheckProgress.complete("Checked for updates");
 
     final isUpToDate = packageVersion == latestVersion;
     if (isUpToDate) {
-      _logger.info('CLI is already at the latest version.');
+      _logger.info("CLI is already at the latest version.");
       return ExitCode.success.code;
     }
 
-    final updateProgress = _logger.progress('Updating to $latestVersion');
+    final updateProgress = _logger.progress("Updating to $latestVersion");
 
     late final ProcessResult result;
     try {
@@ -55,17 +55,17 @@ class UpdateCommand extends Command<int> {
       );
     } catch (error) {
       updateProgress.fail();
-      _logger.err('$error');
+      _logger.err("$error");
       return ExitCode.software.code;
     }
 
     if (result.exitCode != ExitCode.success.code) {
       updateProgress.fail();
-      _logger.err('Error updating CLI: ${result.stderr}');
+      _logger.err("Error updating CLI: ${result.stderr}");
       return ExitCode.software.code;
     }
 
-    updateProgress.complete('Updated to $latestVersion');
+    updateProgress.complete("Updated to $latestVersion");
 
     return ExitCode.success.code;
   }
