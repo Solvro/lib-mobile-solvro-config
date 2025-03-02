@@ -22,7 +22,7 @@ ${lightYellow.wrap('Update available!')} ${lightCyan.wrap(packageVersion)} \u219
 Run ${lightCyan.wrap('$executableName update')} to update''';
 
 void main() {
-  group("SolvroConfig2CommandRunner", () {
+  group("SolvroConfigCommandRunner", () {
     late PubUpdater pubUpdater;
     late Logger logger;
     late SolvroConfigCommandRunner commandRunner;
