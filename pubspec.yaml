@@ -19,3 +19,6 @@ dependencies:
   total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
 
   altive_lints: ^1.19.1
+
+  commitlint_cli: ^0.8.1
+  husky: ^0.1.7
