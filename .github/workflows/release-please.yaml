@@ -27,7 +27,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           release-type: dart
     
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: ${{ steps.release.outputs.prs_created }}
       - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1
