@@ -20,7 +20,7 @@ dependencies:
   # l10n_lint:
   # # plural_lint:
   # pyramid_lint:
-  riverpod_lint: ^2.6.5
+  riverpod_lint: ">=2.6.5 <4.0.0"
   total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
   altive_lints: ^1.19.1
   commitlint_cli: ^0.8.1
