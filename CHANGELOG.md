@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.1.0...v1.1.1) (2025-10-01)
+
+
+### Bug Fixes
+
+* pin flutter version ([#21](https://github.com/Solvro/lib-mobile-solvro-config/issues/21)) ([fbdc70e](https://github.com/Solvro/lib-mobile-solvro-config/commit/fbdc70e26eee4d36a7b97ac38470873e83be2449))
+
 ## [1.1.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.0.1...v1.1.0) (2025-10-01)
 
 
