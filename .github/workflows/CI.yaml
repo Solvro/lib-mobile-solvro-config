@@ -10,7 +10,6 @@ on:
     branches:
       - main
 
-
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
@@ -28,18 +27,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
 
-      - name: 🎯 Setup Dart
-        uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
         with:
-          sdk: "stable"
+          flutter-version: "3.35.5"
 
       - name: 📦 Install Dependencies
         run: |
-          dart pub get
+          flutter pub get
 
       - name: 🔎 Verify version
-        run: dart run test --run-skipped -t version-verify 
-      - run: dart analyze --fatal-infos
+        run: dart run test --run-skipped -t version-verify
+      - run: flutter analyze --fatal-infos
       - run: dart run custom_lint --fatal-infos

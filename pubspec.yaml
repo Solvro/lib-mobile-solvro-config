@@ -5,24 +5,24 @@ version: 1.0.1
 repository: https://github.com/Solvro/lib-mobile-solvro-config
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.9.2
 
 dependencies:
-  args: ^2.6.0
+  args: ^2.7.0
   cli_completion: ^0.5.1
   mason_logger: ^0.3.2
   pub_updater: ^0.5.0
   # accessibility_lint:
   # # dart_cognitive_complexity:
   # # flutter_gen_linter:
-  # flutter_hooks_lint:
+  flutter_hooks_lint: ^1.4.0
   # freezed_lint:
   # l10n_lint:
   # # plural_lint:
   # pyramid_lint:
-  riverpod_lint: ^2.6.5
-  total_lints: ^3.4.0 # TODO(simon-the-shark): Bump to 3.7 when released
-  altive_lints: ^1.19.1
+  riverpod_lint: ^3.0.1
+  total_lints: ^3.9.0
+  altive_lints: ^1.23.0
   commitlint_cli: ^0.8.1
   husky: ^0.1.7
   lint_staged: ^0.5.1
