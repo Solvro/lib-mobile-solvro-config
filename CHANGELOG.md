@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.0.1...v1.1.0) (2025-10-01)
+
+
+### Features
+
+* bump some lint dependencies ([#18](https://github.com/Solvro/lib-mobile-solvro-config/issues/18)) ([b6565f6](https://github.com/Solvro/lib-mobile-solvro-config/commit/b6565f6dc774982edc460888e6643a6d35f9e52b))
+
 ## [1.0.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.0.0...v1.0.1) (2025-03-02)
 
 
