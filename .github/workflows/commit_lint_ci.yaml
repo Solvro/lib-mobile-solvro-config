@@ -1,22 +1,24 @@
 name: Commit Name Check
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
     types: [opened, synchronize]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.35.5"
 
       - name: Get Dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Validate PR Commits
         run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config commitlint.yaml
-  

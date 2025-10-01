@@ -5,7 +5,7 @@ version: 1.0.2
 repository: https://github.com/Solvro/lib-mobile-solvro-config
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.9.2
 
 dependencies:
   args: ^2.7.0
@@ -21,7 +21,7 @@ dependencies:
   # # plural_lint:
   # pyramid_lint:
   riverpod_lint: ^3.0.1
-  total_lints: ^3.7.0
+  total_lints: ^3.9.0
   altive_lints: ^1.23.0
   commitlint_cli: ^0.8.1
   husky: ^0.1.7
