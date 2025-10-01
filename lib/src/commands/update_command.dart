@@ -21,7 +21,7 @@ class UpdateCommand extends Command<int> {
   @override
   String get description => "Update the CLI.";
 
-  static const String commandName = "update";
+  static const commandName = "update";
 
   @override
   String get name => commandName;
