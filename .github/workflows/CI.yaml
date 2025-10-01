@@ -40,4 +40,4 @@ jobs:
       - name: 🔎 Verify version
         run: dart run test --run-skipped -t version-verify
       - run: flutter analyze --fatal-infos
-      - run: flutter run custom_lint --fatal-infos
+      - run: dart run custom_lint --fatal-infos
