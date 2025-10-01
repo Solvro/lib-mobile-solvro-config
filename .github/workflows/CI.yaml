@@ -23,7 +23,7 @@ jobs:
         .*/**/*.md
       modified_files_only: false
 
-  verify-version:
+  verify-version-and-run-lints:
     runs-on: ubuntu-latest
     steps:
       - name: 📚 Git Checkout

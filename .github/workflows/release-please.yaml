@@ -11,10 +11,8 @@ permissions:
 
 jobs:
   release-please:
-    
     runs-on: ubuntu-latest
     steps:
-    
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v2
@@ -26,25 +24,25 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
           release-type: dart
-    
-      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v5
         if: ${{ steps.release.outputs.prs_created }}
-      - name: 🎯 Setup Dart
-        uses: dart-lang/setup-dart@v1
+
+      - uses: subosito/flutter-action@v2
         if: ${{ steps.release.outputs.prs_created }}
         with:
-          sdk: "stable"
+          flutter-version: "3.35.5"
 
       - name: 📦 Install Dependencies
         if: ${{ steps.release.outputs.prs_created }}
         run: |
-          dart pub get
-    
+          flutter pub get
+
       - name: Run Build and Tests
         if: ${{ steps.release.outputs.prs_created }}
         run: |
           dart run build_runner build --delete-conflicting-outputs
-    
+
       - name: Commit and push changes (build runner)
         uses: devops-infra/action-commit-push@master
         if: ${{ steps.release.outputs.prs_created }}
