@@ -25,7 +25,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           release-type: dart
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.prs_created }}
 
       - uses: subosito/flutter-action@v2
