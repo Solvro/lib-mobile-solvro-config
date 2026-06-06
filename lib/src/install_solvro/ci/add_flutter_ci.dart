@@ -49,9 +49,6 @@ jobs:
       - name: Analyze project source
         run: flutter analyze --fatal-infos
 
-      - name: Run custom lints
-        run: dart run custom_lint --fatal-infos
-
       - name: Flutter tests
         run: flutter test
   ''';
