@@ -26,33 +26,33 @@ jobs:
           release-type: dart
 
       - uses: actions/checkout@v6
-        if: ${{ steps.release.outputs.prs_created }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
-          ref: release-please--branches--main--components--solvro_config
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
           token: ${{ steps.generate-token.outputs.token }}
 
       - uses: dart-lang/setup-dart@v1
-        if: ${{ steps.release.outputs.prs_created }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
           sdk: "3.11.5"
 
       - name: 📦 Install Dependencies
-        if: ${{ steps.release.outputs.prs_created }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         run: |
           dart pub get
 
       - name: Run build_runner build
-        if: ${{ steps.release.outputs.prs_created }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         run: |
           dart run build_runner build --delete-conflicting-outputs
 
       - name: Commit and push changes (build runner)
         uses: devops-infra/action-commit-push@master
-        if: ${{ steps.release.outputs.prs_created }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
           github_token: "${{ steps.generate-token.outputs.token }}"
           add_timestamp: true
           commit_prefix: "chore: "
           commit_message: "run build_runner build"
           force: false
-          target_branch: release-please--branches--main--components--solvro_config
+          target_branch: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
