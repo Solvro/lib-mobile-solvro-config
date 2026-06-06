@@ -14,7 +14,8 @@ class UpdateCommand extends Command<int> {
   UpdateCommand({required Logger logger, PubUpdater? pubUpdater})
     : this._(logger: logger, pubUpdater: pubUpdater ?? PubUpdater());
 
-  UpdateCommand._({required this.logger, required this._pubUpdater});
+  UpdateCommand._({required this.logger, required PubUpdater pubUpdater})
+    : _pubUpdater = pubUpdater;
 
   final Logger logger;
   final PubUpdater _pubUpdater;
