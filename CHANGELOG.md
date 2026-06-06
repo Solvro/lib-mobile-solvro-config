@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.4](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.3...v1.6.4) (2026-06-06)
+
+
+### Bug Fixes
+
+* build build number ([dd355ae](https://github.com/Solvro/lib-mobile-solvro-config/commit/dd355aef7d66a854d716537fcaa36f3330bd1194))
+* build build number ([fbb2556](https://github.com/Solvro/lib-mobile-solvro-config/commit/fbb25565d15fc4b5e189b03e06a160308fcaadfe))
+* build build number ([191d95a](https://github.com/Solvro/lib-mobile-solvro-config/commit/191d95a471c2935db18a111b21be4f1ba99c61b5))
+
 ## [1.6.3](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.2...v1.6.3) (2026-06-06)
 
 
