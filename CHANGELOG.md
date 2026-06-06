@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.0...v1.6.1) (2026-06-06)
+
+
+### Bug Fixes
+
+* update SDK version constraint to allow compatibility with Dart 3.11.0 ([989a38d](https://github.com/Solvro/lib-mobile-solvro-config/commit/989a38d9ee76553d289c3e23a25ce71058d3a61f))
+
 ## [1.6.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.5.0...v1.6.0) (2026-06-06)
 
 
