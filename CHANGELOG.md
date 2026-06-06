@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.3.0...v1.4.0) (2026-06-06)
+
+
+### Features
+
+* migrate bunch of linters to dart analyer plugins ([4a8a390](https://github.com/Solvro/lib-mobile-solvro-config/commit/4a8a390e51a838d1d7ec2a14e7a1d63a38785e86))
+
+
+### Bug Fixes
+
+* **deps:** allow lower flutter version ([81563a9](https://github.com/Solvro/lib-mobile-solvro-config/commit/81563a98bb7953d89af86a84b4038de785347476))
+
 ## [1.5.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.3.0...v1.5.0) (2026-06-06)
 
 
