@@ -4,7 +4,7 @@ import "package:mason_logger/mason_logger.dart";
 import "../install_solvro/install_solvro.dart";
 
 class InstallSolvroCommand extends Command<int> {
-  InstallSolvroCommand({required Logger logger}) : _logger = logger {
+  InstallSolvroCommand({required this.logger}) {
     argParser.addFlag(
       "package",
       abbr: "p",
@@ -19,29 +19,29 @@ class InstallSolvroCommand extends Command<int> {
   @override
   String get name => "install";
 
-  final Logger _logger;
+  final Logger logger;
 
   @override
   Future<int> run() async {
-    _logger.info(lightCyan.wrap("Installing Solvro config..."));
+    logger.info(lightCyan.wrap("Installing Solvro config..."));
     try {
       if (argResults?["package"] == true) {
-        _logger.info(
+        logger.info(
           yellow.wrap("Requested package version installation (not an app)..."),
         );
-        await installSolvroApp(_logger, installAppVersion: false);
+        await installSolvroApp(logger, installAppVersion: false);
       } else {
-        _logger.info(lightCyan.wrap("Requested app version installation..."));
-        await installSolvroApp(_logger, installAppVersion: true);
+        logger.info(lightCyan.wrap("Requested app version installation..."));
+        await installSolvroApp(logger, installAppVersion: true);
       }
 
-      _logger.info(
+      logger.info(
         lightGreen.wrap("Solvro config installed successfully 🎉🚀✨"),
       );
 
       return ExitCode.success.code;
     } on Exception catch (e) {
-      _logger.err(e.toString());
+      logger.err(e.toString());
       return ExitCode.software.code;
     }
   }

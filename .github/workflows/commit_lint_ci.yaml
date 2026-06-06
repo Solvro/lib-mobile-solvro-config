@@ -13,12 +13,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: subosito/flutter-action@v2
+      - uses: dart-lang/setup-dart@v1
         with:
-          flutter-version: "3.44.1"
+          sdk: "3.12.0"
 
       - name: Get Dependencies
-        run: flutter pub get
+        run: dart pub get
 
       - name: Validate PR Commits
         run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config commitlint.yaml

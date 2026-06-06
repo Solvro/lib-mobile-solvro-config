@@ -9,8 +9,7 @@ import "version.dart";
 
 const executableName = "solvro_config";
 const packageName = "solvro_config";
-const description =
-    "A Flutter and Dart linter/config package for Solvro projects.";
+const description = "A Dart linter/config package for Solvro projects.";
 
 /// {@template solvro_config_command_runner}
 /// A [CommandRunner] for the CLI.

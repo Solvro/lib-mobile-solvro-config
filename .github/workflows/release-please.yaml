@@ -30,15 +30,15 @@ jobs:
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
-      - uses: subosito/flutter-action@v2
+      - uses: dart-lang/setup-dart@v1
         if: ${{ steps.release.outputs.prs_created }}
         with:
-          flutter-version: "3.44.1"
+          sdk: "3.12.0"
 
       - name: 📦 Install Dependencies
         if: ${{ steps.release.outputs.prs_created }}
         run: |
-          flutter pub get
+          dart pub get
 
       - name: Run Build and Tests
         if: ${{ steps.release.outputs.prs_created }}
