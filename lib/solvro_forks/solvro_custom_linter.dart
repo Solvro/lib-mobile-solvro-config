@@ -45,7 +45,7 @@ class SolvroCustomLinterPlugin extends Plugin {
 
 abstract class _SolvroRule extends AnalysisRule {
   _SolvroRule(this.code, String description)
-    : super(name: code.name, description: description);
+    : super(name: code.lowerCaseName, description: description);
 
   final LintCode code;
 
@@ -443,13 +443,13 @@ class FreezedMissingMixinRule extends _SolvroRule {
       this,
       _ClassVisitor(this, (node) {
         if (!_hasFreezedAnnotation(node.metadata)) return;
-        final expected = "_\$${node.name.lexeme}";
+        final expected = "_\$${node.namePart.typeName.lexeme}";
         final hasMixin =
             node.withClause?.mixinTypes.any(
               (type) => type.name.lexeme == expected,
             ) ??
             false;
-        if (!hasMixin) reportAtToken(node.name);
+        if (!hasMixin) reportAtToken(node.namePart.typeName);
       }),
     );
   }
@@ -474,14 +474,14 @@ class FreezedMissingPrivateEmptyConstructorRule extends _SolvroRule {
       this,
       _ClassVisitor(this, (node) {
         if (!_hasFreezedAnnotation(node.metadata)) return;
-        final hasPrivateEmptyCtor = node.members
+        final hasPrivateEmptyCtor = node.body.members
             .whereType<ConstructorDeclaration>()
             .any(
               (ctor) =>
                   ctor.name?.lexeme == "_" &&
                   ctor.parameters.parameters.isEmpty,
             );
-        if (!hasPrivateEmptyCtor) reportAtToken(node.name);
+        if (!hasPrivateEmptyCtor) reportAtToken(node.namePart.typeName);
       }),
     );
   }
@@ -593,7 +593,7 @@ class HooksExtendsRule extends _SolvroRule {
           return;
         }
         final usesHook = node.toString().contains(RegExp(r"\buse[A-Z]\w*\("));
-        if (usesHook) reportAtToken(node.name);
+        if (usesHook) reportAtToken(node.namePart.typeName);
       }),
     );
   }
@@ -622,7 +622,7 @@ class HooksUnuseWidgetRule extends _SolvroRule {
           return;
         }
         final usesHook = node.toString().contains(RegExp(r"\buse[A-Z]\w*\("));
-        if (!usesHook) reportAtToken(node.name);
+        if (!usesHook) reportAtToken(node.namePart.typeName);
       }),
     );
   }
@@ -648,7 +648,7 @@ class DisposeControllersRule extends _SolvroRule {
       _ClassVisitor(this, (node) {
         if (!_extendsState(node)) return;
         final fields = <String>[];
-        for (final member in node.members.whereType<FieldDeclaration>()) {
+        for (final member in node.body.members.whereType<FieldDeclaration>()) {
           final type = member.fields.type?.toString() ?? "";
           if (!type.endsWith("Controller")) continue;
           for (final variable in member.fields.variables) {
@@ -656,7 +656,7 @@ class DisposeControllersRule extends _SolvroRule {
           }
         }
         if (fields.isEmpty) return;
-        final dispose = node.members.whereType<MethodDeclaration>().where(
+        final dispose = node.body.members.whereType<MethodDeclaration>().where(
           (m) => m.name.lexeme == "dispose",
         );
         final disposeBody = dispose.isEmpty
@@ -664,7 +664,7 @@ class DisposeControllersRule extends _SolvroRule {
             : dispose.first.body.toString();
         for (final field in fields) {
           if (!disposeBody.contains("$field.dispose()")) {
-            reportAtToken(node.name);
+            reportAtToken(node.namePart.typeName);
           }
         }
       }),
@@ -744,9 +744,11 @@ class PreferToIncludeSliverInNameRule extends _SolvroRule {
     registry.addClassDeclaration(
       this,
       _ClassVisitor(this, (node) {
-        final buildMethod = node.members.whereType<MethodDeclaration>().where(
-          (method) => method.name.lexeme == "build",
-        );
+        final buildMethod = node.body.members
+            .whereType<MethodDeclaration>()
+            .where(
+              (method) => method.name.lexeme == "build",
+            );
         if (buildMethod.isEmpty) {
           return;
         }
@@ -763,17 +765,18 @@ class PreferToIncludeSliverInNameRule extends _SolvroRule {
                   ?.getDisplayString();
               return typeName?.startsWith("Sliver") ?? false;
             });
-        if (!returnsSliver || node.name.lexeme.contains("Sliver")) {
+        if (!returnsSliver ||
+            node.namePart.typeName.lexeme.contains("Sliver")) {
           return;
         }
 
-        final hasSliverConstructor = node.members
+        final hasSliverConstructor = node.body.members
             .whereType<ConstructorDeclaration>()
             .map((constructor) => constructor.name?.lexeme)
             .nonNulls
             .any((name) => name.toLowerCase().contains("sliver"));
         if (!hasSliverConstructor) {
-          reportAtToken(node.name);
+          reportAtToken(node.namePart.typeName);
         }
       }),
     );
