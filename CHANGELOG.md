@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.4...v1.7.0) (2026-06-06)
+
+
+### Features
+
+* drop some weird behaving rules ([c833721](https://github.com/Solvro/lib-mobile-solvro-config/commit/c83372130e57b2766246a4176ef304c0bea8d9ad))
+
 ## [1.6.4](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.3...v1.6.4) (2026-06-06)
 
 
