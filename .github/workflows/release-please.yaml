@@ -31,7 +31,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         if: ${{ steps.release.outputs.prs_created }}
         with:
-          flutter-version: "3.41.4"
+          flutter-version: "3.44.1"
 
       - name: 📦 Install Dependencies
         if: ${{ steps.release.outputs.prs_created }}
