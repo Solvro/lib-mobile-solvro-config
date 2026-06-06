@@ -21,7 +21,7 @@ ${yamlName == "app" ? _solvroCustomLinterPlugin : ""}""";
 
 const _solvroCustomLinterPlugin = """
   solvro_config:
-    version: ^1.7.0
+    version: ^1.8.0
     diagnostics:
       provider_dependencies: false # this works weirdly
 """;
