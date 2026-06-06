@@ -29,10 +29,30 @@ jobs:
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         run: sleep 10
 
+      - name: Resolve release PR branch
+        id: release-pr
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        env:
+          PR_JSON: ${{ steps.release.outputs.pr }}
+          PRS_JSON: ${{ steps.release.outputs.prs }}
+        run: |
+          if [ -n "${PR_JSON}" ]; then
+            head_branch="$(jq -r '.headBranchName // empty' <<< "${PR_JSON}")"
+          else
+            head_branch="$(jq -r '.[0].headBranchName // empty' <<< "${PRS_JSON}")"
+          fi
+
+          if [ -z "${head_branch}" ]; then
+            echo "Could not resolve release PR branch."
+            exit 1
+          fi
+
+          echo "head_branch=${head_branch}" >> "${GITHUB_OUTPUT}"
+
       - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
-          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+          ref: ${{ steps.release-pr.outputs.head_branch }}
           token: ${{ steps.generate-token.outputs.token }}
 
       - uses: dart-lang/setup-dart@v1
@@ -53,7 +73,7 @@ jobs:
       - name: Commit and push changes (build runner)
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         env:
-          TARGET_BRANCH: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+          TARGET_BRANCH: ${{ steps.release-pr.outputs.head_branch }}
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "No build_runner changes to commit."
