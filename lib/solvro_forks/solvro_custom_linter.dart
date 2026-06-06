@@ -19,14 +19,12 @@ class SolvroCustomLinterPlugin extends Plugin {
     <AnalysisRule>[
       AddHapticFeedbackOnUserInteractionRule(),
       AvoidConsecutiveSliverToBoxAdapterRule(),
-      AvoidDynamicRule(),
       AvoidHardcodedColorRule(),
       AvoidIconButtonWithoutTooltipRule(),
       AvoidIconWithoutSemanticLabelRule(),
       AvoidImageWithoutSemanticLabelRule(),
       AvoidSingleChildRule(),
       AvoidSmallInteractiveElementsRule(),
-      AvoidStringLiteralsInsideWidgetRule(),
       AssetImageRule(),
       CognitiveComplexityRule(),
       DisposeControllersRule(),
@@ -34,17 +32,13 @@ class SolvroCustomLinterPlugin extends Plugin {
       FreezedMissingPrivateEmptyConstructorRule(),
       HooksAvoidNestingRule(),
       HooksAvoidWithinClassRule(),
-      HooksCallbackConsiderationRule(),
       HooksExtendsRule(),
-      HooksMemoizedConsiderationRule(),
       HooksNameConventionRule(),
       HooksUnuseWidgetRule(),
       PreferIterableAnyRule(),
-      PreferIterableEveryRule(),
       PreferIterableFirstRule(),
       PreferIterableLastRule(),
       PreferToIncludeSliverInNameRule(),
-      UnnecessaryNullableReturnTypeRule(),
     ].forEach(registry.registerWarningRule);
   }
 }
@@ -72,11 +66,6 @@ NamedExpression? _namedArgument(ArgumentList arguments, String name) {
 
 bool _hasNamedArgument(ArgumentList arguments, String name) =>
     _namedArgument(arguments, name) != null;
-
-bool _isNullLiteral(Expression expression) => expression is NullLiteral;
-
-bool _isEmptyString(Expression expression) =>
-    expression is SimpleStringLiteral && expression.value.isEmpty;
 
 class AvoidIconButtonWithoutTooltipRule extends _SolvroRule {
   AvoidIconButtonWithoutTooltipRule()
@@ -412,27 +401,6 @@ class AssetImageRule extends _SolvroRule {
   }
 }
 
-class AvoidStringLiteralsInsideWidgetRule extends _SolvroRule {
-  AvoidStringLiteralsInsideWidgetRule()
-    : super(
-        const LintCode(
-          "avoid_string_literals_inside_widget",
-          "String literals should not be declared inside a widget.",
-        ),
-        "Encourages localized strings in widgets.",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    final visitor = _StringLiteralVisitor(this);
-    registry.addSimpleStringLiteral(this, visitor);
-    registry.addStringInterpolation(this, visitor);
-  }
-}
-
 class CognitiveComplexityRule extends _SolvroRule {
   CognitiveComplexityRule()
     : super(
@@ -660,79 +628,6 @@ class HooksUnuseWidgetRule extends _SolvroRule {
   }
 }
 
-class HooksMemoizedConsiderationRule extends _SolvroRule {
-  HooksMemoizedConsiderationRule()
-    : super(
-        const LintCode(
-          "hooks_memoized_consideration",
-          "Consider useMemoized for expensive values created in HookWidget build methods.",
-        ),
-        "Suggests useMemoized for object creation in hook widgets.",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    registry.addInstanceCreationExpression(
-      this,
-      _InstanceVisitor(this, (node) {
-        if (_insideHookWidget(node) && !_insideHookCall(node)) {
-          reportAtNode(node);
-        }
-      }),
-    );
-  }
-}
-
-class HooksCallbackConsiderationRule extends _SolvroRule {
-  HooksCallbackConsiderationRule()
-    : super(
-        const LintCode(
-          "hooks_callback_consideration",
-          "Consider useCallback for callbacks created in HookWidget build methods.",
-        ),
-        "Suggests useCallback for callbacks in hook widgets.",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    registry.addFunctionExpression(
-      this,
-      _FunctionExpressionVisitor(this, (node) {
-        if (_insideHookWidget(node) && !_insideHookCall(node)) {
-          reportAtNode(node);
-        }
-      }),
-    );
-  }
-}
-
-class AvoidDynamicRule extends _SolvroRule {
-  AvoidDynamicRule()
-    : super(
-        const LintCode("avoid_dynamic", "Avoid explicit dynamic types."),
-        "Disallows explicit dynamic type annotations.",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    registry.addNamedType(
-      this,
-      _NamedTypeVisitor(this, (node) {
-        if (node.name.lexeme == "dynamic") reportAtNode(node);
-      }),
-    );
-  }
-}
-
 class DisposeControllersRule extends _SolvroRule {
   DisposeControllersRule()
     : super(
@@ -777,42 +672,12 @@ class DisposeControllersRule extends _SolvroRule {
   }
 }
 
-class UnnecessaryNullableReturnTypeRule extends _SolvroRule {
-  UnnecessaryNullableReturnTypeRule()
-    : super(
-        const LintCode(
-          "unnecessary_nullable_return_type",
-          "Return type is nullable but the function never returns null.",
-        ),
-        "Finds nullable return types where null is never returned.",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    final visitor = _NullableReturnVisitor(this);
-    registry.addFunctionDeclaration(this, visitor);
-    registry.addMethodDeclaration(this, visitor);
-  }
-}
-
 class PreferIterableAnyRule extends _PreferIterableRule {
   PreferIterableAnyRule()
     : super(
         "prefer_iterable_any",
         "Prefer iterable.any(...) over where(...).isNotEmpty.",
         "any",
-      );
-}
-
-class PreferIterableEveryRule extends _PreferIterableRule {
-  PreferIterableEveryRule()
-    : super(
-        "prefer_iterable_every",
-        "Prefer iterable.every(...) over where(...).length checks.",
-        "every",
       );
 }
 
@@ -856,16 +721,6 @@ class _PreferIterableRule extends _SolvroRule {
         if (kind == "any" && property == "isNotEmpty") reportAtNode(node);
         if (kind == "first" && property == "first") reportAtNode(node);
         if (kind == "last" && property == "last") reportAtNode(node);
-      }),
-    );
-    registry.addBinaryExpression(
-      this,
-      _BinaryExpressionVisitor(this, (node) {
-        if (kind != "every") return;
-        final source = node.toString();
-        if (source.contains(".where(") && source.contains(".length")) {
-          reportAtNode(node);
-        }
       }),
     );
   }
@@ -989,15 +844,6 @@ class _ClassVisitor extends SimpleAstVisitor<void> {
   void visitClassDeclaration(ClassDeclaration node) => check(node);
 }
 
-class _NamedTypeVisitor extends SimpleAstVisitor<void> {
-  _NamedTypeVisitor(this.rule, this.check);
-
-  final AnalysisRule rule;
-  final void Function(NamedType node) check;
-  @override
-  void visitNamedType(NamedType node) => check(node);
-}
-
 class _PropertyAccessVisitor extends SimpleAstVisitor<void> {
   _PropertyAccessVisitor(this.rule, this.check);
 
@@ -1005,40 +851,6 @@ class _PropertyAccessVisitor extends SimpleAstVisitor<void> {
   final void Function(PropertyAccess node) check;
   @override
   void visitPropertyAccess(PropertyAccess node) => check(node);
-}
-
-class _BinaryExpressionVisitor extends SimpleAstVisitor<void> {
-  _BinaryExpressionVisitor(this.rule, this.check);
-
-  final AnalysisRule rule;
-  final void Function(BinaryExpression node) check;
-  @override
-  void visitBinaryExpression(BinaryExpression node) => check(node);
-}
-
-class _FunctionExpressionVisitor extends SimpleAstVisitor<void> {
-  _FunctionExpressionVisitor(this.rule, this.check);
-
-  final AnalysisRule rule;
-  final void Function(FunctionExpression node) check;
-  @override
-  void visitFunctionExpression(FunctionExpression node) => check(node);
-}
-
-class _StringLiteralVisitor extends SimpleAstVisitor<void> {
-  _StringLiteralVisitor(this.rule);
-
-  final AnalysisRule rule;
-
-  @override
-  void visitSimpleStringLiteral(SimpleStringLiteral node) {
-    if (!_isEmptyString(node) && _insideWidget(node)) rule.reportAtNode(node);
-  }
-
-  @override
-  void visitStringInterpolation(StringInterpolation node) {
-    if (_insideWidget(node)) rule.reportAtNode(node);
-  }
 }
 
 class _HardcodedColorVisitor extends SimpleAstVisitor<void> {
@@ -1240,74 +1052,6 @@ class _ComplexityCounter extends RecursiveAstVisitor<void> {
     }
     super.visitBinaryExpression(node);
   }
-}
-
-class _NullableReturnVisitor extends SimpleAstVisitor<void> {
-  _NullableReturnVisitor(this.rule);
-  final AnalysisRule rule;
-
-  @override
-  void visitFunctionDeclaration(FunctionDeclaration node) {
-    final returnType = node.returnType;
-    if (returnType == null || !returnType.toString().endsWith("?")) return;
-    if (!_returnsNull(node.functionExpression.body)) {
-      rule.reportAtNode(returnType);
-    }
-  }
-
-  @override
-  void visitMethodDeclaration(MethodDeclaration node) {
-    final returnType = node.returnType;
-    if (returnType == null || !returnType.toString().endsWith("?")) return;
-    if (!_returnsNull(node.body)) rule.reportAtNode(returnType);
-  }
-
-  bool _returnsNull(FunctionBody body) {
-    final visitor = _NullReturnVisitor();
-    body.accept(visitor);
-    return visitor.found;
-  }
-}
-
-class _NullReturnVisitor extends RecursiveAstVisitor<void> {
-  var found = false;
-
-  @override
-  void visitReturnStatement(ReturnStatement node) {
-    if (node.expression case final expression?
-        when _isNullLiteral(expression)) {
-      found = true;
-    }
-  }
-}
-
-bool _insideWidget(AstNode node) {
-  for (AstNode? current = node; current != null; current = current.parent) {
-    if (current is ConstructorDeclaration) return true;
-    if (current is ClassDeclaration) {
-      final superclass = current.extendsClause?.superclass.name.lexeme;
-      return superclass != null &&
-          (superclass.endsWith("Widget") || superclass == "State");
-    }
-  }
-  return false;
-}
-
-bool _insideHookWidget(AstNode node) {
-  for (AstNode? current = node; current != null; current = current.parent) {
-    if (current is ClassDeclaration) {
-      final superclass = current.extendsClause?.superclass.name.lexeme;
-      return superclass == "HookWidget" || superclass == "HookConsumerWidget";
-    }
-  }
-  return false;
-}
-
-bool _insideHookCall(AstNode node) {
-  for (AstNode? current = node; current != null; current = current.parent) {
-    if (current is MethodInvocation && _isHookCall(current)) return true;
-  }
-  return false;
 }
 
 bool _isHookCall(MethodInvocation node) =>
