@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.7.0...v1.8.0) (2026-06-06)
+
+
+### Features
+
+* support analyzer 12 ([8356322](https://github.com/Solvro/lib-mobile-solvro-config/commit/83563229294ab0936f2cf8711345c15e61db91ed))
+
 ## [1.7.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.4...v1.7.0) (2026-06-06)
 
 
