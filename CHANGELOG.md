@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.1...v1.6.2) (2026-06-06)
+
+
+### Bug Fixes
+
+* correct constructor parameter assignment in UpdateCommand ([ee7136a](https://github.com/Solvro/lib-mobile-solvro-config/commit/ee7136ab02cde127e5fa4ba986eb4d54cb2a0cb4))
+
 ## [1.6.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.6.0...v1.6.1) (2026-06-06)
 
 
