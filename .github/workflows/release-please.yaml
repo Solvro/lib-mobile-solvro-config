@@ -25,6 +25,10 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           release-type: dart
 
+      - name: Wait for release PR branch
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        run: sleep 10
+
       - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
@@ -51,7 +55,7 @@ jobs:
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
           github_token: "${{ steps.generate-token.outputs.token }}"
-          add_timestamp: true
+          add_timestamp: false
           commit_prefix: "chore: "
           commit_message: "run build_runner build"
           force: false
