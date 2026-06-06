@@ -24,12 +24,10 @@ class SolvroCustomLinterPlugin extends Plugin {
       AvoidIconWithoutSemanticLabelRule(),
       AvoidImageWithoutSemanticLabelRule(),
       AvoidSingleChildRule(),
-      AvoidSmallInteractiveElementsRule(),
       AssetImageRule(),
       CognitiveComplexityRule(),
       DisposeControllersRule(),
       FreezedMissingMixinRule(),
-      FreezedMissingPrivateEmptyConstructorRule(),
       HooksAvoidNestingRule(),
       HooksAvoidWithinClassRule(),
       HooksExtendsRule(),
@@ -298,48 +296,6 @@ class AvoidImageWithoutSemanticLabelRule extends _SolvroRule {
   }
 }
 
-class AvoidSmallInteractiveElementsRule extends _SolvroRule {
-  AvoidSmallInteractiveElementsRule()
-    : super(
-        const LintCode(
-          "avoid_small_interactive_elements",
-          "Interactive elements should be at least 48x48 logical pixels.",
-        ),
-        "Ensures common interactive widgets are large enough to tap.",
-      );
-
-  static const _interactiveWidgets = {
-    "ElevatedButton",
-    "FilledButton",
-    "FloatingActionButton",
-    "IconButton",
-    "InkWell",
-    "OutlinedButton",
-    "TextButton",
-  };
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    registry.addInstanceCreationExpression(
-      this,
-      _InstanceVisitor(this, (node) {
-        if (!_interactiveWidgets.contains(
-          node.constructorName.type.name.lexeme,
-        )) {
-          return;
-        }
-        final minimumSize = _namedArgument(node.argumentList, "minimumSize");
-        if (minimumSize == null) {
-          reportAtNode(node);
-        }
-      }),
-    );
-  }
-}
-
 class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
   AddHapticFeedbackOnUserInteractionRule()
     : super(
@@ -450,38 +406,6 @@ class FreezedMissingMixinRule extends _SolvroRule {
             ) ??
             false;
         if (!hasMixin) reportAtToken(node.namePart.typeName);
-      }),
-    );
-  }
-}
-
-class FreezedMissingPrivateEmptyConstructorRule extends _SolvroRule {
-  FreezedMissingPrivateEmptyConstructorRule()
-    : super(
-        const LintCode(
-          "freezed_missing_private_empty_constructor",
-          "Freezed classes should declare a private empty constructor.",
-        ),
-        "Ensures @freezed classes include ClassName._().",
-      );
-
-  @override
-  void registerNodeProcessors(
-    RuleVisitorRegistry registry,
-    RuleContext context,
-  ) {
-    registry.addClassDeclaration(
-      this,
-      _ClassVisitor(this, (node) {
-        if (!_hasFreezedAnnotation(node.metadata)) return;
-        final hasPrivateEmptyCtor = node.body.members
-            .whereType<ConstructorDeclaration>()
-            .any(
-              (ctor) =>
-                  ctor.name?.lexeme == "_" &&
-                  ctor.parameters.parameters.isEmpty,
-            );
-        if (!hasPrivateEmptyCtor) reportAtToken(node.namePart.typeName);
       }),
     );
   }
