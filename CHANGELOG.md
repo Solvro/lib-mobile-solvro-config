@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.5.0...v1.6.0) (2026-06-06)
+
+
+### Features
+
+* drop flutter as dependency ([ad0dd33](https://github.com/Solvro/lib-mobile-solvro-config/commit/ad0dd334ea0bfe6de2a31d026c80990370191e2a))
+
+
+### Bug Fixes
+
+* **deps:** allow lower flutter version ([81563a9](https://github.com/Solvro/lib-mobile-solvro-config/commit/81563a98bb7953d89af86a84b4038de785347476))
+
 ## [1.5.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.3.0...v1.5.0) (2026-06-06)
 
 
