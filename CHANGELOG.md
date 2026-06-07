@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.4-dev](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.8.3-dev...v1.8.4-dev) (2026-06-07)
+
+### Features
+
+* add `avoid_haptic_feedback_in_haptic_owning_widget` lint rule
+
 ## [1.8.3-dev](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.8.2-dev.2...v1.8.3-dev) (2026-06-07)
 
 

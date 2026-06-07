@@ -19,6 +19,7 @@ class SolvroCustomLinterPlugin extends Plugin {
   void register(PluginRegistry registry) {
     <AnalysisRule>[
       AddHapticFeedbackOnUserInteractionRule(),
+      AvoidHapticFeedbackInHapticOwningWidgetRule(),
       AvoidConsecutiveSliverToBoxAdapterRule(),
       AvoidHardcodedColorRule(),
       AvoidIconButtonWithoutTooltipRule(),
@@ -441,6 +442,59 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
         }
       }
     }
+  }
+}
+
+class AvoidHapticFeedbackInHapticOwningWidgetRule extends _SolvroRule {
+  AvoidHapticFeedbackInHapticOwningWidgetRule()
+    : super(
+        const LintCode(
+          "avoid_haptic_feedback_in_haptic_owning_widget",
+          "Haptic feedback is already provided by the widget and should not be duplicated.",
+        ),
+        "Prevents duplicate HapticFeedback in interaction callbacks for widgets that already provide it.",
+      );
+
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final hapticWrappers = {
+      ...AddHapticFeedbackOnUserInteractionRule._configuredHapticWrappers(
+        context,
+      ),
+      "HapticFeedback.",
+    };
+    final hapticOwningWidgets =
+        AddHapticFeedbackOnUserInteractionRule._configuredHapticOwningWidgets(
+          context,
+        );
+
+    registry.addNamedExpression(
+      this,
+      _NamedExpressionVisitor(this, (node) {
+        if (!{
+          "onTap",
+          "onPressed",
+          "onLongPress",
+        }.contains(node.name.label.name)) {
+          return;
+        }
+
+        if (!AddHapticFeedbackOnUserInteractionRule._isCallbackInHapticOwningWidget(
+          node,
+          hapticOwningWidgets,
+        )) {
+          return;
+        }
+
+        final source = node.expression.toString();
+        if (hapticWrappers.any(source.contains)) {
+          reportAtNode(node);
+        }
+      }),
+    );
   }
 }
 

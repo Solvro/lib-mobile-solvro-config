@@ -38,7 +38,7 @@ plugins:
       - AppHaptics.
 ```
 
-Reusable widgets that trigger haptics internally can be listed as haptic-owning widgets. Callback arguments passed to these widgets will not be reported by the rule, so callers can keep callbacks business-only:
+Reusable widgets that trigger haptics internally can be listed as haptic-owning widgets. Callback arguments passed to these widgets will not be reported by the `add_haptic_feedback_on_user_interaction` rule, and will be actively rejected by the `avoid_haptic_feedback_in_haptic_owning_widget` rule, so callers can keep callbacks business-only:
 
 ```yaml
 plugins:
