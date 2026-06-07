@@ -24,3 +24,16 @@ $ solvro_config --version
 # Show usage help
 $ solvro_config --help
 ```
+
+## Custom haptic wrappers
+
+The `add_haptic_feedback_on_user_interaction` rule accepts custom haptic wrappers in `analysis_options.yaml`:
+
+```yaml
+plugins:
+  solvro_config:
+    version: ^1.8.0
+    haptic_wrappers:
+      - HapticFeedback.
+      - AppHaptics.
+```

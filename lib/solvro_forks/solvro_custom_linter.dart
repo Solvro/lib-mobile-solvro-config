@@ -9,6 +9,7 @@ import "package:analyzer/dart/ast/visitor.dart";
 import "package:analyzer/dart/element/element.dart";
 import "package:analyzer/dart/element/type.dart";
 import "package:analyzer/error/error.dart";
+import "package:yaml/yaml.dart";
 
 class SolvroCustomLinterPlugin extends Plugin {
   @override
@@ -306,11 +307,15 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
         "Encourages HapticFeedback in interaction callbacks.",
       );
 
+  static const _defaultHapticWrappers = ["HapticFeedback."];
+
   @override
   void registerNodeProcessors(
     RuleVisitorRegistry registry,
     RuleContext context,
   ) {
+    final hapticWrappers = _configuredHapticWrappers(context);
+
     registry.addNamedExpression(
       this,
       _NamedExpressionVisitor(this, (node) {
@@ -322,11 +327,73 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
           return;
         }
         final source = node.expression.toString();
-        if (!source.contains("HapticFeedback.")) {
+        if (!hapticWrappers.any(source.contains)) {
           reportAtNode(node);
         }
       }),
     );
+  }
+
+  static List<String> _configuredHapticWrappers(RuleContext context) {
+    final package = context.package;
+    if (package == null) {
+      return _defaultHapticWrappers;
+    }
+
+    final optionsFile = package.root.getChildAssumingFile(
+      "analysis_options.yaml",
+    );
+    if (!optionsFile.exists) {
+      return _defaultHapticWrappers;
+    }
+
+    try {
+      final options = loadYamlNode(optionsFile.readAsStringSync());
+      if (options is! YamlMap) {
+        return _defaultHapticWrappers;
+      }
+
+      final plugins = options["plugins"];
+      if (plugins is! YamlMap) {
+        return _defaultHapticWrappers;
+      }
+
+      for (final pluginName in ["solvro_config", "solvro_custom_linter"]) {
+        final pluginConfig = plugins[pluginName];
+        if (pluginConfig is! YamlMap) {
+          continue;
+        }
+
+        final wrappers = <String>[];
+        _addConfiguredWrappers(wrappers, pluginConfig["haptic_wrapper"]);
+        _addConfiguredWrappers(wrappers, pluginConfig["haptic_wrappers"]);
+
+        if (wrappers.isNotEmpty) {
+          return wrappers;
+        }
+      }
+    } on YamlException {
+      return _defaultHapticWrappers;
+    } on Exception {
+      return _defaultHapticWrappers;
+    }
+
+    return _defaultHapticWrappers;
+  }
+
+  static void _addConfiguredWrappers(List<String> wrappers, Object? value) {
+    if (value is String && value.isNotEmpty) {
+      wrappers.add(value);
+      return;
+    }
+
+    if (value is YamlList) {
+      for (final item in value) {
+        if (item is String && item.isNotEmpty) {
+          wrappers.add(item);
+        }
+      }
+    }
   }
 }
 
@@ -670,9 +737,7 @@ class PreferToIncludeSliverInNameRule extends _SolvroRule {
       _ClassVisitor(this, (node) {
         final buildMethod = node.body.members
             .whereType<MethodDeclaration>()
-            .where(
-              (method) => method.name.lexeme == "build",
-            );
+            .where((method) => method.name.lexeme == "build");
         if (buildMethod.isEmpty) {
           return;
         }
