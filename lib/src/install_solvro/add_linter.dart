@@ -26,4 +26,6 @@ const _solvroCustomLinterPlugin = """
       provider_dependencies: false # this works weirdly
     haptic_wrappers:
       - HapticFeedback. # todo: you can change this if you need a custom haptic wrapper. if the default is fine, you can remove this section
+    haptic_owning_widgets:
+      - MySplashTile # todo: list reusable widgets that fire haptics internally, so callers can pass business-only callbacks
 """;

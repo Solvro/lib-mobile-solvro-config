@@ -315,6 +315,7 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
     RuleContext context,
   ) {
     final hapticWrappers = _configuredHapticWrappers(context);
+    final hapticOwningWidgets = _configuredHapticOwningWidgets(context);
 
     registry.addNamedExpression(
       this,
@@ -326,6 +327,11 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
         }.contains(node.name.label.name)) {
           return;
         }
+
+        if (_isCallbackInHapticOwningWidget(node, hapticOwningWidgets)) {
+          return;
+        }
+
         final source = node.expression.toString();
         if (!hapticWrappers.any(source.contains)) {
           reportAtNode(node);
@@ -334,28 +340,66 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
     );
   }
 
+  static bool _isCallbackInHapticOwningWidget(
+    NamedExpression node,
+    List<String> hapticOwningWidgets,
+  ) {
+    final argumentList = node.parent;
+    final creation = argumentList?.parent;
+    if (argumentList is! ArgumentList ||
+        creation is! InstanceCreationExpression) {
+      return false;
+    }
+
+    final widgetName = creation.constructorName.type.name.lexeme;
+    return hapticOwningWidgets.contains(widgetName);
+  }
+
   static List<String> _configuredHapticWrappers(RuleContext context) {
+    return _configuredStrings(
+      context,
+      singularName: "haptic_wrapper",
+      pluralName: "haptic_wrappers",
+      defaultValues: _defaultHapticWrappers,
+    );
+  }
+
+  static List<String> _configuredHapticOwningWidgets(RuleContext context) {
+    return _configuredStrings(
+      context,
+      singularName: "haptic_owning_widget",
+      pluralName: "haptic_owning_widgets",
+      defaultValues: const [],
+    );
+  }
+
+  static List<String> _configuredStrings(
+    RuleContext context, {
+    required String singularName,
+    required String pluralName,
+    required List<String> defaultValues,
+  }) {
     final package = context.package;
     if (package == null) {
-      return _defaultHapticWrappers;
+      return defaultValues;
     }
 
     final optionsFile = package.root.getChildAssumingFile(
       "analysis_options.yaml",
     );
     if (!optionsFile.exists) {
-      return _defaultHapticWrappers;
+      return defaultValues;
     }
 
     try {
       final options = loadYamlNode(optionsFile.readAsStringSync());
       if (options is! YamlMap) {
-        return _defaultHapticWrappers;
+        return defaultValues;
       }
 
       final plugins = options["plugins"];
       if (plugins is! YamlMap) {
-        return _defaultHapticWrappers;
+        return defaultValues;
       }
 
       for (final pluginName in ["solvro_config", "solvro_custom_linter"]) {
@@ -364,33 +408,36 @@ class AddHapticFeedbackOnUserInteractionRule extends _SolvroRule {
           continue;
         }
 
-        final wrappers = <String>[];
-        _addConfiguredWrappers(wrappers, pluginConfig["haptic_wrapper"]);
-        _addConfiguredWrappers(wrappers, pluginConfig["haptic_wrappers"]);
+        final configuredStrings = <String>[];
+        _addConfiguredStrings(configuredStrings, pluginConfig[singularName]);
+        _addConfiguredStrings(configuredStrings, pluginConfig[pluralName]);
 
-        if (wrappers.isNotEmpty) {
-          return wrappers;
+        if (configuredStrings.isNotEmpty) {
+          return configuredStrings;
         }
       }
     } on YamlException {
-      return _defaultHapticWrappers;
+      return defaultValues;
     } on Exception {
-      return _defaultHapticWrappers;
+      return defaultValues;
     }
 
-    return _defaultHapticWrappers;
+    return defaultValues;
   }
 
-  static void _addConfiguredWrappers(List<String> wrappers, Object? value) {
+  static void _addConfiguredStrings(
+    List<String> configuredStrings,
+    Object? value,
+  ) {
     if (value is String && value.isNotEmpty) {
-      wrappers.add(value);
+      configuredStrings.add(value);
       return;
     }
 
     if (value is YamlList) {
       for (final item in value) {
         if (item is String && item.isNotEmpty) {
-          wrappers.add(item);
+          configuredStrings.add(item);
         }
       }
     }

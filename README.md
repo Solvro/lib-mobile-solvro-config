@@ -25,7 +25,7 @@ $ solvro_config --version
 $ solvro_config --help
 ```
 
-## Custom haptic wrappers
+## Haptic feedback
 
 The `add_haptic_feedback_on_user_interaction` rule accepts custom haptic wrappers in `analysis_options.yaml`:
 
@@ -36,4 +36,15 @@ plugins:
     haptic_wrappers:
       - HapticFeedback.
       - AppHaptics.
+```
+
+Reusable widgets that trigger haptics internally can be listed as haptic-owning widgets. Callback arguments passed to these widgets will not be reported by the rule, so callers can keep callbacks business-only:
+
+```yaml
+plugins:
+  solvro_config:
+    version: ^1.8.0
+    haptic_owning_widgets:
+      - MySplashTile
+      - WideTileCard
 ```
