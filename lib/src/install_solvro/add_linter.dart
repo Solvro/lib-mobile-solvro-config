@@ -24,4 +24,6 @@ const _solvroCustomLinterPlugin = """
     version: ^1.8.0
     diagnostics:
       provider_dependencies: false # this works weirdly
+    haptic_wrappers:
+      - HapticFeedback. # todo: you can change this if you need a custom haptic wrapper. if the default is fine, you can remove this section
 """;
