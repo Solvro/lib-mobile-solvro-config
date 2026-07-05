@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.8.0...v1.9.0) (2026-07-05)
+
+
+### Features
+
+* allow configuring widgets that own haptic feedback ([ab45180](https://github.com/Solvro/lib-mobile-solvro-config/commit/ab45180056b4efb870b621e8c9aa76f62380558f))
+
+
+### Bug Fixes
+
+* bump some versions ([bb36f45](https://github.com/Solvro/lib-mobile-solvro-config/commit/bb36f4513c7ce3b192db94e59724fa84e8aa6f2b))
+
 ## [1.8.4-dev](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.8.3-dev...v1.8.4-dev) (2026-06-07)
 
 ### Features
