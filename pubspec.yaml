@@ -1,6 +1,6 @@
 name: solvro_config
 description: A comprehensive Dart linter and configuration package for all Solvro mobile projects.
-version: 1.8.5
+version: 1.9.0
 
 repository: https://github.com/Solvro/lib-mobile-solvro-config
 
