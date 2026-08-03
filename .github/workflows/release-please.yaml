@@ -55,7 +55,7 @@ jobs:
           ref: ${{ steps.release-pr.outputs.head_branch }}
           token: ${{ steps.generate-token.outputs.token }}
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1.7.2
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
           sdk: "3.11.5"
