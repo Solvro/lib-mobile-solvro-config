@@ -44,7 +44,7 @@ jobs:
         run: cp example.env .env
 
       - name: generate files
-        run: dart run build_runner build --delete-conflicting-outputs
+        run: dart run build_runner build
 
       - name: Analyze project source
         run: flutter analyze --fatal-infos
