@@ -68,7 +68,7 @@ jobs:
       - name: Run build_runner build
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         run: |
-          dart run build_runner build --delete-conflicting-outputs
+          dart run build_runner build
 
       - name: Commit and push changes (build runner)
         if: ${{ steps.release.outputs.prs_created == 'true' }}
