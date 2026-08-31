@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.9.0...v1.9.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* **ci:** remove deprecated --delete-conflicting-outputs flag ([#47](https://github.com/Solvro/lib-mobile-solvro-config/issues/47)) ([9064a4d](https://github.com/Solvro/lib-mobile-solvro-config/commit/9064a4d81acf4db363528885bd354425fe9f0317))
+
 ## [1.9.0](https://github.com/Solvro/lib-mobile-solvro-config/compare/v1.8.0...v1.9.0) (2026-07-05)
 
 
